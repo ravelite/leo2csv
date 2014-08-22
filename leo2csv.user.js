@@ -8,7 +8,11 @@
 // @version     1
 // @grant       GM_log
 // @grant       GM_setClipboard
+// @downloadURL https://github.com/ravelite/leo2csv/raw/master/leo2csv.user.js
 // ==/UserScript==
+
+//var targetClient = 'jmem';
+var targetClient = 'anki';
 
 var D = document;
 var newDoc = D.implementation.createHTMLDocument("");
@@ -25,15 +29,17 @@ function doAction( aNode ) {
     var cCol = D.getElementById("centerColumn");
     var strOut = '';
     
+    if ( targetClient == 'jmem' ) {
     //put in jMemorize first row
     strOut += '"Frontside","Flipside","Category"\n';
-    
+    }
+        
     for (var i=0; i<rowsDE.length; i++)
     {
         var cDE = cleanContent( rowsDE[i].textContent );
         var cEN = cleanContent( rowsEN[i].textContent );
         
-        var content = cDE + ", " + cEN;
+        var content = cDE + ", " + cEN + ","; //three needed for anki
         strOut += content + "\n";
     }
     
